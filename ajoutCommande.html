@@ -1,0 +1,39 @@
+<HTML>
+<head>
+</head>
+<body>
+<form method="POST" action="ajoutCommande.php">
+<table>
+<caption>Ajouter commande</caption>
+<tr>
+<td>idCmd</td>
+<td><input type="number" name="idCmd"></td>
+</tr>
+<tr>
+<td>dateCmd</td>
+<td><input type="text" name="dateCmd"></td>
+</tr>
+<tr>
+<td>prixtot</td>
+<td><input type="text" name="prixtot"></td>
+</tr>
+<tr>
+<td>date_prev</td>
+<td><input type="text" name="date_prev"></td>
+</tr>
+<tr>
+<td>etatCmd</td>
+<td><input type="text" name="etatCmd"></td>
+</tr>
+<tr>
+<td></td>
+<td><input type="submit" name="ajouter" value="ajouter"></td>
+</tr>
+</table>
+</form>
+<form method="POST" action="recherche.php">
+	Recherche d'une commande par son etat : <input type="text" name="srch" />
+	<input type="submit" name="submit">
+</form>
+</body>
+</HTMl>
