@@ -56,15 +56,7 @@
 				<!-- start: search & user box -->
 				<div class="header-right">
 			
-					<form action="pages-search-results.html" class="search nav-form">
-						<div class="input-group input-search">
-							<input type="text" class="form-control" name="q" id="q" placeholder="Search...">
-							<span class="input-group-btn">
-								<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
-							</span>
-						</div>
-					</form>
-			
+
 					<span class="separator"></span>
 			
 					<ul class="notifications">
@@ -494,7 +486,12 @@
 							<div class="panel-body">
 								<?PHP
 include "../../core/commandec.php";
+$db = config::getConnexion();
 $commande1C=new commandeC();
+if(isset($_GET['r']))
+$listecommandes=$db->query('SELECT * FROM employe where etatCmd LIKE \'%'.$_GET['r'].'%\'');
+else
+
 $listecommandes=$commande1C->affichercommandes();
 
 //var_dump($listecommandes->fetchAll());
@@ -571,6 +568,7 @@ function sortTable(n) {
 										<?PHP 
 foreach($listecommandes as $row){
 	?>
+	
 		<tr>
 	<td><?PHP echo $row['idCmd']; ?></td>
 	<td><?PHP echo $row['dateCmd']; ?></td>
@@ -580,6 +578,11 @@ foreach($listecommandes as $row){
 	<td><form method="POST" action="supprimercommande.php">
 	<input type="submit" name="supprimer" value="supprimer">
 	<input type="hidden" value="<?PHP echo $row['idCmd']; ?>" name="idCmd">
+	<input type="hidden" value="<?PHP echo $row['dateCmd']; ?>" name="dateCmd">
+	<input type="hidden" value="<?PHP echo $row['prixtot']; ?>" name="prixtot">
+	<input type="hidden" value="<?PHP echo $row['date_prev']; ?>" name="date_prev">
+	<input type="hidden" value="<?PHP echo $row['etatCmd']; ?>" name="etatCmd">
+
 	</form>
 	</td>
 	<td><a href="modifier.php?idCmd=<?PHP echo $row['idCmd']; ?>">
@@ -594,9 +597,28 @@ foreach($listecommandes as $row){
 									
 									</tbody>
 								</table>
-								<form method="POST" action="recherche.php">
-	Recherche d'une commande par son etat : <input type="text" name="srch" >
-	<input type="submit" name="submit">
+								<div id="bootstrap-data-table-export_filter" class="dataTables_filter">
+
+								<label>
+									
+								
+	Recherche d'une commande par son etat : <input <?php if (isset($_GET['r']))echo 'value="'.$_GET['r'].'"'; ?> type="search"  placeholder="Type du Blog" id="recherche">
+	</label>
+</div>
+
+
+
+	
+<form method="POST" action="afficherhistorique.php">
+	<input type="submit" name="historique" value="voir historique">
+	
+</form>
+
+	
+
+<form method="POST" action="index.php">
+	<input type="submit" name="pourcentage" value="voir pourcentage">
+	
 </form>
 							</div>
 						</section>
@@ -704,5 +726,22 @@ foreach($listecommandes as $row){
 		<script src="assets/javascripts/tables/examples.datatables.default.js"></script>
 		<script src="assets/javascripts/tables/examples.datatables.row.with.details.js"></script>
 		<script src="assets/javascripts/tables/examples.datatables.tabletools.js"></script>
+		<script type="text/javascript">
+
+    let recherche=document.getElementById("recherche");
+
+        recherche.addEventListener("keydown",function (e)
+
+        {
+
+            if (e.keyCode==13)
+
+                document.location="afficherCommande1.php?r="+recherche.value;
+
+            e.stopPropagation(); 
+
+        });
+
+    </script>
 	</body>
 </html>

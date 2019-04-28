@@ -3,8 +3,8 @@ class commande{
 	private $idCmd;
 	private $dateCmd;
 	private $prixtot;
-	private $etatCmd;
 	private $date_prev;
+	private $etatCmd;	
 	function __construct($idCmd,$dateCmd,$prixtot,$date_prev,$etatCmd){
 		$this->idCmd=$idCmd;
 		$this->dateCmd=$dateCmd;

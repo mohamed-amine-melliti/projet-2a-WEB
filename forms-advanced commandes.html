@@ -50,7 +50,25 @@
 		<script src="assets/vendor/modernizr/modernizr.js"></script>
 
 	</head>
+	<style>
+		input:required{
+			background:  center no-repeat;
+			background-size: 10px;
+		}
+		input:focus:invalid{
+			border-color: red;
+			background-image: none;
+
+		}
+		input:focus:valid{
+			border-color: #56c93f;
+			background-image: none;
+
+		}
+	
+	</style>
 	<body>
+
 		<section class="body">
 
 			<!-- start: header -->
@@ -509,32 +527,33 @@
 											<div class="form-group">
 												<label class="col-md-3 control-label"> id commande</label>
 												<div class="col-md-6">
-													<input type="number" name="idCmd">
+													<input type="number" name="idCmd" required="veuillez renseigner ce champ">
+													
 												</div>
 											</div>
 						
 											<div class="form-group">
 												<label class="col-md-3 control-label">date commande</label>
 												<div class="col-md-6">
-													<input type="text" name="dateCmd">
+													<input type="Date" name="dateCmd" required="veuillez renseigner ce champ">
 												</div>
 											</div>
 											<div class="form-group">
 												<label class="col-md-3 control-label">prix total commande</label>
 												<div class="col-md-6">
-													<input type="number" name="prixtot">
+													<input type="number" name="prixtot" required="veuillez renseigner ce champ">
 												</div>
 											</div>
 											<div class="form-group">
 												<label class="col-md-3 control-label">date prevu</label>
 												<div class="col-md-6">
-													<input type="text" name="date_prev">
+													<input type="Date" name="date_prev" required="veuillez renseigner ce champ">
 												</div>
 											</div>
 											<div class="form-group">
 												<label class="col-md-3 control-label">etat commande</label>
 												<div class="col-md-6">
-													<input type="text" name="etatCmd">
+													<input type="text" name="etatCmd" required="veuillez renseigner ce champ">
 												</div>
 											</div>
 											<input type="submit" name="ajouter" value="ajouter"></td>

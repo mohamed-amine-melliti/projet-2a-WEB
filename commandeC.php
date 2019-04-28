@@ -59,8 +59,21 @@ function affichercommande ($commande){
             die('Erreur: '.$e->getMessage());
         }	
 	}
+	function afficherhistorique(){
+		//$sql="SElECT * From commande e inner join formationphp.commande a on e.idCmd= a.idCmd";
+		$sql="SElECT * From historique";
+		$db = config::getConnexion();
+		try{
+		$liste=$db->query($sql);
+		return $liste;
+		}
+        catch (Exception $e){
+            die('Erreur: '.$e->getMessage());
+        }	
+	}
 	function supprimercommande($idCmd){
 		$sql="DELETE FROM employe where idCmd= :idCmd";
+
 		$db = config::getConnexion();
         $req=$db->prepare($sql);
 		$req->bindValue(':idCmd',$idCmd);
@@ -71,7 +84,65 @@ function affichercommande ($commande){
         catch (Exception $e){
             die('Erreur: '.$e->getMessage());
         }
+        
 	}
+	function historique($commande){
+		$sql="insert into historique (idCmd,dateCmd,prixtot,date_prev,etatCmd) values (:idCmd, :dateCmd,:prixtot,:date_prev,:etatCmd)";
+		$db = config::getConnexion();
+        
+        try{
+        	 $req=$db->prepare($sql);
+        	 $idCmd=$commande->getidCmd();
+        $dateCmd=$commande->getdateCmd();
+        $prixtot=$commande->getprixtot();
+        $date_prev=$commande->getdate_prev();
+        $etatCmd=$commande->getetatCmd();
+        $req->bindValue(':idCmd',$idCmd);
+		$req->bindValue(':dateCmd',$dateCmd);
+		$req->bindValue(':prixtot',$prixtot);
+		$req->bindValue(':date_prev',$date_prev);
+		$req->bindValue(':etatCmd',$etatCmd);
+		$req->execute();
+            
+           // header('Location: index.php');
+        }
+        catch (Exception $e){
+            die('Erreur: '.$e->getMessage());
+        }
+      
+
+
+       // try{
+        	 /*$idCmd=$commande->getidCmd();
+        $dateCmd=$commande->getdateCmd();
+        $prixtot=$commande->getprixtot();
+        $date_prev=$commande->getdate_prev();
+        $etatCmd=$commande->getetatCmd();
+        $req->bindValue(':idCmd',$idCmd);
+		$req->bindValue(':dateCmd',$dateCmd);
+		$req->bindValue(':prixtot',$prixtot);
+		$req->bindValue(':date_prev',$date_prev);
+		$req->bindValue(':etatCmd',$etatCmd);*/
+            //$req->execute();
+           // header('Location: index.php');
+        //}
+        //catch (Exception $e){
+           // die('Erreur: '.$e->getMessage());
+        //}
+    //    $sql1="DELETE FROM employe where idCmd='$idCmd'";
+  //      $req1=$db->prepare($sql1);
+       // $req1->bindValue(':idCmd',$idCmd);
+//		try{
+          //  $req1->execute();
+           // header('Location: index.php');
+        //}
+        //catch (Exception $e){
+          //  die('Erreur: '.$e->getMessage());
+        //}
+
+	}
+
+
 	function modifiercommande($commande,$idCmd){
 		$sql="UPDATE employe SET idCmd=:idCmdn, dateCmd=:dateCmd,prixtot=:prixtot,date_prev=:date_prev,etatCmd=:etatCmd WHERE idCmd=:idCmd";
 		
